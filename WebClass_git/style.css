@@ -11,16 +11,6 @@
             --transition: all 0.3s ease;
         }
 
-        .dark-mode {
-            --primary: #8f94fb;
-            --secondary: #4e54c8;
-            --dark: #f8f9fa;
-            --light: #1a1a2e;
-            --text: #f0f0f0;
-            --glass: rgba(26, 26, 46, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -149,6 +139,13 @@
             width: 100%;
         }
 
+        .social-links .portfolio-link {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+
+        .social-links .portfolio-link:hover {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+        }
 
         .hamburger {
             display: none;
@@ -483,17 +480,12 @@
             transform: rotateY(-360deg);
         }
 
-        .student-avatar {
-            width: 120px;
-            height: 120px;
+        .student-avatar img {
+            width: 118px;
+            height: 115px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-size: 2.5rem;
+            object-fit: cover;
+            border: 2px solid rgb(250, 248, 248);
         }
 
         .student-name {
@@ -1008,7 +1000,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 878px) {
             .hamburger {
                 display: block;
             }
