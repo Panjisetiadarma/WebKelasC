@@ -1,11 +1,59 @@
 
         // Loading Screen
-        window.addEventListener('load', function() {
+        function generateHexagons() {
+            const hexContainer = document.getElementById('hexContainer');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const hexSize = 60;
+            const hexWidth = hexSize * 2;
+            const hexHeight = Math.sqrt(3) * hexSize;
+            
+            // Calculate how many hexagons we need
+            const cols = Math.ceil(width / (hexWidth * 0.75)) + 2;
+            const rows = Math.ceil(height / (hexHeight * 0.5)) + 2;
+            
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const hex = document.createElement('div');
+                    hex.className = 'hexagon';
+                    
+                    // Position hexagons in a grid
+                    const offset = (col % 2) * (hexHeight / 2);
+                    const x = col * hexWidth * 0.75;
+                    const y = row * hexHeight - offset;
+                    
+                    // Randomize position slightly for organic look
+                    const randX = Math.random() * 20 - 10;
+                    const randY = Math.random() * 20 - 10;
+                    
+                    hex.style.left = `${x + randX}px`;
+                    hex.style.top = `${y + randY}px`;
+                    
+                    // Randomize animation duration and delay
+                    const duration = 20 + Math.random() * 30;
+                    const delay = Math.random() * 5;
+                    
+                    hex.style.animation = `hex-float ${duration}s ${delay}s infinite linear`;
+                    
+                    hexContainer.appendChild(hex);
+                }
+            }
+        }
+
+        // Hide loading screen after delay
+        setTimeout(() => {
             const loadingScreen = document.querySelector('.loading-screen');
+            loadingScreen.classList.add('hidden');
+            
+            // Remove loading screen completely after animation
             setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-            }, 2000);
-        });
+                loadingScreen.style.display = 'none';
+            }, 800);
+        }, 3000);
+
+        // Generate hexagons when page loads
+        window.addEventListener('load', generateHexagons);
+        
 
         // Mobile Navigation
         const hamburger = document.getElementById('hamburger');
@@ -558,5 +606,30 @@
         
         // Inisialisasi
         window.onload = renderStudents;
+
+    
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filterValue = button.textContent.trim().toLowerCase();
+
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category').toLowerCase();
+                if (filterValue === 'semua' || itemCategory === filterValue) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
 
 
