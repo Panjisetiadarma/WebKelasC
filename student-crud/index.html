@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Profil Mahasiswa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .app-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .app-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .app-title p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            flex: 1;
+            min-width: 400px;
+            max-width: 500px;
+        }
+        
+        .preview-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            min-width: 400px;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: #1a2a6c;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+            color: #b21f1f;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.2);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        
+        /* Preview Card Styles */
+        .card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .header h2 {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+            flex: 1;
+        }
+        
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .social-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #333;
+            word-break: break-word;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            flex: 1;
+            min-width: 120px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border-color: #1a2a6c;
+        }
+        
+        .social-link i {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .social-link .fa-instagram {
+            color: #E1306C;
+        }
+        
+        .social-link .fa-github {
+            color: #333;
+        }
+        
+        .social-link .fa-linkedin {
+            color: #0077B5;
+        }
+        
+        .social-link .fa-briefcase {
+            color: #8E54E9;
+        }
+        
+        .social-link h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .social-link a {
+            text-decoration: none;
+            color: #1a2a6c;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        
+        .social-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .portfolio-placeholder {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            border: 2px dashed #ddd;
+            margin-top: 10px;
+        }
+        
+        .portfolio-placeholder i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 900px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .form-section, .preview-section {
+                max-width: 100%;
+            }
+            
+            .content {
+                flex-direction: column;
+            }
+            
+            .social-section {
+                border-top: 1px solid #eee;
+                margin-top: 20px;
+                padding-top: 30px;
+            }
+        }
+        
+        .empty-data {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .input-hint {
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-title">
+            <h1><i class="fas fa-user-graduate"></i> Profil Mahasiswa</h1>
+            <p>Isi formulir untuk membuat profil Anda</p>
+        </div>
+        
+        <div class="app-container">
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-edit"></i> Formulir Profil
+                </div>
+                
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="nim">NIM:</label>
+                        <input type="text" id="nim" placeholder="Masukkan NIM Anda">
+                        <p class="input-hint">Contoh: 2450081065</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap:</label>
+                        <input type="text" id="name" placeholder="Masukkan nama lengkap Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ttl">Tempat, Tanggal Lahir:</label>
+                        <input type="text" id="ttl" placeholder="Contoh: Karawang, 22 Februari 2006">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">Bio Singkat:</label>
+                        <textarea id="bio" rows="3" placeholder="Tulis bio singkat tentang Anda"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ig">Instagram URL:</label>
+                        <input type="url" id="ig" placeholder="https://www.instagram.com/username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="git">GitHub URL:</label>
+                        <input type="url" id="git" placeholder="https://github.com/username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="in">LinkedIn URL:</label>
+                        <input type="url" id="in" placeholder="https://www.linkedin.com/in/username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="porto">Portfolio URL:</label>
+                        <input type="url" id="porto" placeholder="https://portfolio-anda.com">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sync-alt"></i> Perbarui Profil
+                    </button>
+                </form>
+            </div>
+            
+            <div class="preview-section">
+                <div class="card">
+                    <div class="header">
+                        <div class="profile-pic">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h1 id="preview-name">Nama Mahasiswa</h1>
+                        <h2>Mahasiswa | NIM: <span id="preview-nim">-</span></h2>
+                    </div>
+                    
+                    <div class="content">
+                        <div class="info-section">
+                            <div class="section-title">
+                                <i class="fas fa-info-circle"></i> Informasi Pribadi
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">NIM</div>
+                                <div class="info-value" id="preview-nim-value">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Nama Lengkap</div>
+                                <div class="info-value" id="preview-name-value">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">TTL</div>
+                                <div class="info-value" id="preview-ttl">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Bio</div>
+                                <div class="info-value" id="preview-bio">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-section">
+                            <div class="section-title">
+                                <i class="fas fa-share-alt"></i> Media & Portfolio
+                            </div>
+                            
+                            <div class="social-links">
+                                <div class="social-link">
+                                    <i class="fab fa-instagram"></i>
+                                    <h3>Instagram</h3>
+                                    <a href="#" target="_blank" id="preview-ig">@username</a>
+                                </div>
+                                
+                                <div class="social-link">
+                                    <i class="fab fa-github"></i>
+                                    <h3>GitHub</h3>
+                                    <a href="#" target="_blank" id="preview-git">github.com</a>
+                                </div>
+                                
+                                <div class="social-link">
+                                    <i class="fab fa-linkedin-in"></i>
+                                    <h3>LinkedIn</h3>
+                                    <a href="#" target="_blank" id="preview-in">linkedin.com</a>
+                                </div>
+                                
+                                <div class="social-link">
+                                    <i class="fas fa-briefcase"></i>
+                                    <h3>Portfolio</h3>
+                                    <div class="portfolio-placeholder" id="preview-porto">
+                                        <i class="fas fa-folder-plus"></i>
+                                        <p>Portfolio belum tersedia</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer">
+                        <p>&copy; 2023 Profil Mahasiswa | Data dapat diisi melalui formulir</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('profile-form');
+            const previewName = document.getElementById('preview-name');
+            const previewNim = document.getElementById('preview-nim');
+            const previewNameValue = document.getElementById('preview-name-value');
+            const previewNimValue = document.getElementById('preview-nim-value');
+            const previewTtl = document.getElementById('preview-ttl');
+            const previewBio = document.getElementById('preview-bio');
+            const previewIg = document.getElementById('preview-ig');
+            const previewGit = document.getElementById('preview-git');
+            const previewIn = document.getElementById('preview-in');
+            const previewPorto = document.getElementById('preview-porto');
+            
+            // Inisialisasi data kosong
+            resetForm();
+            
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const nim = document.getElementById('nim').value || '-';
+                const name = document.getElementById('name').value || 'Nama Mahasiswa';
+                const ttl = document.getElementById('ttl').value || '-';
+                const bio = document.getElementById('bio').value || '-';
+                const ig = document.getElementById('ig').value || '#';
+                const git = document.getElementById('git').value || '#';
+                const inUrl = document.getElementById('in').value || '#';
+                const porto = document.getElementById('porto').value || '';
+                
+                // Update preview
+                previewName.textContent = name;
+                previewNim.textContent = nim;
+                previewNameValue.textContent = name;
+                previewNimValue.textContent = nim;
+                previewTtl.textContent = ttl;
+                previewBio.textContent = bio;
+                
+                // Update social links
+                previewIg.href = ig;
+                previewIg.textContent = ig === '#' ? '@username' : ig;
+                
+                previewGit.href = git;
+                previewGit.textContent = git === '#' ? 'github.com' : git;
+                
+                previewIn.href = inUrl;
+                previewIn.textContent = inUrl === '#' ? 'linkedin.com' : inUrl;
+                
+                // Update portfolio
+                if (porto) {
+                    previewPorto.innerHTML = `
+                        <a href="${porto}" target="_blank" style="color: #1a2a6c; text-decoration: none;">
+                            <i class="fas fa-external-link-alt" style="font-size: 36px; margin-bottom: 10px; color: #1a2a6c;"></i>
+                            <p style="color: #1a2a6c; font-weight: 600;">Lihat Portfolio</p>
+                        </a>
+                    `;
+                } else {
+                    previewPorto.innerHTML = `
+                        <i class="fas fa-folder-plus"></i>
+                        <p>Portfolio belum tersedia</p>
+                    `;
+                }
+                
+                // Animasi update
+                animateUpdate();
+            });
+            
+            // Reset button functionality
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'r') {
+                    e.preventDefault();
+                    resetForm();
+                }
+            });
+            
+            function resetForm() {
+                // Reset form fields
+                document.getElementById('nim').value = '';
+                document.getElementById('name').value = '';
+                document.getElementById('ttl').value = '';
+                document.getElementById('bio').value = '';
+                document.getElementById('ig').value = '';
+                document.getElementById('git').value = '';
+                document.getElementById('in').value = '';
+                document.getElementById('porto').value = '';
+                
+                // Reset preview
+                previewName.textContent = 'Nama Mahasiswa';
+                previewNim.textContent = '-';
+                previewNameValue.textContent = '-';
+                previewNimValue.textContent = '-';
+                previewTtl.textContent = '-';
+                previewBio.textContent = '-';
+                previewIg.href = '#';
+                previewIg.textContent = '@username';
+                previewGit.href = '#';
+                previewGit.textContent = 'github.com';
+                previewIn.href = '#';
+                previewIn.textContent = 'linkedin.com';
+                previewPorto.innerHTML = `
+                    <i class="fas fa-folder-plus"></i>
+                    <p>Portfolio belum tersedia</p>
+                `;
+                
+                // Show reset animation
+                animateReset();
+            }
+            
+            function animateUpdate() {
+                const card = document.querySelector('.card');
+                card.style.transform = 'scale(0.98)';
+                card.style.opacity = '0.9';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.4s ease';
+                    card.style.transform = 'scale(1)';
+                    card.style.opacity = '1';
+                }, 100);
+            }
+            
+            function animateReset() {
+                const card = document.querySelector('.card');
+                card.style.transition = 'all 0.5s ease';
+                card.style.transform = 'translateY(20px)';
+                card.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.opacity = '1';
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>
